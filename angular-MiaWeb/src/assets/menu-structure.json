@@ -25,9 +25,9 @@
         "title": "Urlaub",
         "buttons": [
           { 
-            "label": "Toskana Urlaub", 
+            "label": "Florenz Urlaub", 
             "actionType": "photo", 
-            "parameter": "Toskana" 
+            "parameter": "Florenz" 
           },
           { 
             "label": "Abi Fahrt", 
