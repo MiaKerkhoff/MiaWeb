@@ -8,6 +8,10 @@
     </mat-card>
 </div>
 
+<mat-card>
+    
+</mat-card>
+
 <!-- NEU: Ein Container, der das zweispaltige Layout hält -->
 <div class="main-layout">
 
@@ -17,7 +21,7 @@
                 <h2>Wer bin ich?</h2>
                 <p id="text">Hallo!</p>
                 <p id="text">Ich bin Mia</p>
-                <p>Ich bin seit...</p> <!-- Kleiner Tipp am Rande: "seit" bei Zeitangaben ;) -->
+                <p>Ich bin seit...</p> 
             </div>  
         </mat-card>
         <mat-card class="content" appearance="outlined" (click)="onCardClickArchiv()">
@@ -29,8 +33,18 @@
     </div>
 
     <div class="banner">
-        <mat-card class="content" appearance="outlined" (click)="onCardClickweiterleitung('dnd')">
-            <h2 align="center"> DnD </h2> 
+        <mat-card class="content dnd-flex-card" appearance="outlined" (click)="onCardClickweiterleitung('dnd')">
+            
+            <!-- Element 1 (links): Das Logo -->
+            <img src="assets/fotos/globalAssets/dnd-logo-transparent.png" alt="dnd-logo" width="100" class="imageLogo">
+            
+            <!-- Element 2 (rechts): Alle Texte zusammengefasst -->
+            <div class="dndText">
+                <h2>DnD</h2> 
+                <p class="text-line">Hier findet man alles mögliche zum Thema DnD</p>
+                <p class="text-line">Vorlagen - Zusammenfassungen - nützliche Downloads</p>
+            </div>
+
         </mat-card>
     </div>
 

@@ -1,6 +1,6 @@
 .headerContent{
   margin-top: 1.25rem;
-   padding: 0.8rem 1.25rem;
+  padding: 0.8rem 1.25rem;
 }
 
 .home-header {
@@ -38,8 +38,6 @@
   margin-top: 20px;     // Abstand nach oben zum Header
   align-items: flex-start; // Verhindert, dass sich Elemente unschön in die Länge ziehen
 
-  // Für kleinere Bildschirme (z.B. Smartphones) bricht das Layout 
-  // automatisch wieder untereinander um, damit es mobil gut aussieht.
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -76,6 +74,7 @@
   &:hover {
     background: #416282;
     border-color: #c84dff;
+    cursor: pointer;
   }
 }
 
@@ -86,4 +85,39 @@
 
 .image{
   border-radius: 8px;
+}
+
+.dnd-flex-card {
+  display: flex !important;
+  flex-direction: row;       
+  align-items: center;       
+  gap: 24px;                 
+  padding: 20px !important;
+}
+
+// Das Logo auf der linken Seite
+.imageLogo {
+  display: block;
+  flex-shrink: 0;            // Verhindert, dass das Logo zusammengedrückt wird
+  height: auto;
+  // mix-blend-mode: multiply; // Falls du doch wieder das weiße Logo nutzt
+}
+
+// Das Text-Paket auf der rechten Seite
+.dndText {
+  display: flex;
+  flex-direction: column;    // Stapelt Überschrift und Absätze untereinander
+  gap: 6px;                  // Abstand zwischen den Textzeilen
+  text-align: left;          // Richtet den Text linksbündig aus
+
+  h2 {
+    margin: 0;
+    font-size: 1.6rem;
+    color: #DF0000;
+  }
+
+  .text-line {
+    margin: 0;               // Entfernt die störenden Standard-Abstände von <p>
+    font-size: 1rem;
+  }
 }
