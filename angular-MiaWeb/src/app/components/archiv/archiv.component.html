@@ -8,7 +8,7 @@
     </mat-card>
 
     <div class="archiv-body">
-        <!-- DESKTOP-MENÜ (Bleibt wie zuvor) -->
+        <!-- ================= DESKTOP-MENÜ (Dynamisch aus JSON) ================= -->
         @if (!isMobile) {
             <mat-card class="archiv-menu-card" appearance="outlined">
                 <div align="center">
@@ -17,65 +17,36 @@
                 </div>
                 
                 <div>
-                    <!-- ================= STORYS ================= -->
-                    <h3 align="center" class="clickable-header" (click)="toggle('storys')">
-                        Storys 
-                        <span class="arrow" [class.rotated]="isExpanded('storys')">▼</span>
-                    </h3>
-                    
-                    @if (isExpanded('storys')) {
-                        <div class="sub-category-container">
-                            <h4 align="center" class="clickable-header" (click)="toggle('warhammer')">
-                                Warhammer
-                                <span class="arrow" [class.rotated]="isExpanded('warhammer')">▼</span>
-                            </h4>
-                            
-                            @if (isExpanded('warhammer')) {
-                                <div class="button-container">
-                                    <button mat-button class="inhaltsbutton" (click)="buttonClick('Green Winged Hussars')">
-                                        Green Winged Hussars
-                                    </button>
-                                </div>
-                            }
-                        </div>
+                    @for (category of menuStructure; track category.key) {
+                        <!-- Hauptkategorie (z.B. Storys, Fotos) -->
+                        <h3 align="center" class="clickable-header" (click)="toggle(category.key)">
+                            {{ category.title }} 
+                            <span class="arrow" [class.rotated]="isExpanded(category.key)">▼</span>
+                        </h3>
+                        
+                        @if (isExpanded(category.key)) {
+                            <div class="sub-category-container">
+                                @for (sub of category.subCategories; track sub.key) {
+                                    <!-- Unterkategorie (z.B. Warhammer, Urlaub) -->
+                                    <h4 align="center" class="clickable-header" (click)="toggle(sub.key)">
+                                        {{ sub.title }}
+                                        <span class="arrow" [class.rotated]="isExpanded(sub.key)">▼</span>
+                                    </h4>
+                                    
+                                    @if (isExpanded(sub.key)) {
+                                        <div class="button-container">
+                                            @for (btn of sub.buttons; track btn.label) {
+                                                <!-- Die dynamischen Buttons -->
+                                                <button mat-button class="inhaltsbutton" (click)="onMenuButtonClick(btn)">
+                                                    {{ btn.label }}
+                                                </button>
+                                            }
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        }
                     }
-
-                    <!-- ================= FOTOS ================= -->
-                    <h3 align="center" class="clickable-header" (click)="toggle('fotos')">
-                        Fotos
-                        <span class="arrow" [class.rotated]="isExpanded('fotos')">▼</span>
-                    </h3>
-                    
-                    @if (isExpanded('fotos')) {
-                        <div class="sub-category-container">
-                            <h4 align="center" class="clickable-header" (click)="toggle('urlaub')">
-                                Urlaub
-                                <span class="arrow" [class.rotated]="isExpanded('urlaub')">▼</span>
-                            </h4>
-                            @if (isExpanded('urlaub')) {
-                                <div class="button-container">
-                                    <button mat-button class="inhaltsbutton" (click)="buttonClickPhotos('Toskana')">
-                                        Toskana Urlaub
-                                    </button>
-                                    <button mat-button class="inhaltsbutton" (click)="buttonClickPhotos('Abifahrt')">
-                                        Abi Fahrt
-                                    </button>
-                                </div>
-                            }
-
-                            <h4 align="center" class="clickable-header" (click)="toggle('sonstiges')">
-                                Sonstiges
-                                <span class="arrow" [class.rotated]="isExpanded('sonstiges')">▼</span>
-                            </h4>
-                            @if (isExpanded('sonstiges')) {
-                                <div class="button-container">
-                                    <button mat-button class="inhaltsbutton" (click)="buttonClickPhotos('✨me✨')">
-                                        Me
-                                    </button>
-                                </div>
-                            }
-                        </div>
-                    } 
                 </div>
             </mat-card>
         }
@@ -86,7 +57,7 @@
         </div>
     </div>
 
-    <!-- HANDY-MODUS ELEMENTE (Hier wurde optimiert!) -->
+    <!-- ================= HANDY-MODUS ELEMENTE (Dynamisch aus JSON) ================= -->
     @if (isMobile) {
         <!-- Schwebender runder Menü-Button unten rechts -->
         <button class="mobile-fab" (click)="showMobileMenu = true">
@@ -96,75 +67,41 @@
         <!-- Großes Vollbild-Auswahl-Overlay -->
         @if (showMobileMenu) {
             <div class="mobile-menu-overlay">
-                <!-- Der Schließen-Button hat jetzt einen schönen runden Hintergrund bekommen -->
                 <button class="close-overlay-btn" (click)="showMobileMenu = false">&times;</button>
                 
                 <div class="overlay-content">
                     <h2 align="center">Inhaltsübersicht</h2>
                     <hr class="separator">
 
-                    <!-- ================= MOBILE: STORYS ================= -->
-                    <h3 align="center" class="clickable-header mobile-header" (click)="toggle('storys_m')">
-                        Storys
-                        <span class="arrow" [class.rotated]="isExpanded('storys_m')">▼</span>
-                    </h3>
-                    
-                    @if (isExpanded('storys_m')) {
-                        <div class="mobile-sub-container">
-                            <h4 align="center" class="clickable-header mobile-header" (click)="toggle('warhammer_m')">
-                                Warhammer
-                                <span class="arrow" [class.rotated]="isExpanded('warhammer_m')">▼</span>
-                            </h4>
-                            
-                            @if (isExpanded('warhammer_m')) {
-                                <div class="mobile-button-container">
-                                    <!-- Wenn ein Button geklickt wird, schließt sich das Menü automatisch für besseren Flow -->
-                                    <button mat-raised-button color="primary" class="mobile-inhaltsbutton" (click)="buttonClick('Green Winged Hussars'); showMobileMenu = false">
-                                        Green Winged Hussars
-                                    </button>
-                                </div>
-                            }
-                        </div>
-                    }
-
-                    <!-- ================= MOBILE: FOTOS ================= -->
-                    <h3 align="center" class="clickable-header mobile-header" (click)="toggle('fotos_m')">
-                        Fotos
-                        <span class="arrow" [class.rotated]="isExpanded('fotos_m')">▼</span>
-                    </h3>
-                    
-                    @if (isExpanded('fotos_m')) {
-                        <div class="mobile-sub-container">
-                            
-                            <!-- Urlaub -->
-                            <h4 align="center" class="clickable-header mobile-header" (click)="toggle('urlaub_m')">
-                                Urlaub
-                                <span class="arrow" [class.rotated]="isExpanded('urlaub_m')">▼</span>
-                            </h4>
-                            @if (isExpanded('urlaub_m')) {
-                                <div class="mobile-button-container">
-                                    <button mat-raised-button color="primary" class="mobile-inhaltsbutton" (click)="buttonClickPhotos('Toskana'); showMobileMenu = false">
-                                        Toskana Urlaub
-                                    </button>
-                                    <button mat-raised-button color="primary" class="mobile-inhaltsbutton" (click)="buttonClickPhotos('Abifahrt'); showMobileMenu = false">
-                                        Abi Fahrt
-                                    </button>
-                                </div>
-                            }
-
-                            <!-- Sonstiges -->
-                            <h4 align="center" class="clickable-header mobile-header" (click)="toggle('sonstiges_m')">
-                                Sonstiges
-                                <span class="arrow" [class.rotated]="isExpanded('sonstiges_m')">▼</span>
-                            </h4>
-                            @if (isExpanded('sonstiges_m')) {
-                                <div class="mobile-button-container">
-                                    <button mat-raised-button color="primary" class="mobile-inhaltsbutton" (click)="buttonClickPhotos('✨me✨'); showMobileMenu = false">
-                                        Me
-                                    </button>
-                                </div>
-                            }
-                        </div>
+                    @for (category of menuStructure; track category.key) {
+                        <!-- Mobile Hauptkategorie (mit '_m' Suffix für getrennte Toggle-States) -->
+                        <h3 align="center" class="clickable-header mobile-header" (click)="toggle(category.key + '_m')">
+                            {{ category.title }}
+                            <span class="arrow" [class.rotated]="isExpanded(category.key + '_m')">▼</span>
+                        </h3>
+                        
+                        @if (isExpanded(category.key + '_m')) {
+                            <div class="mobile-sub-container">
+                                @for (sub of category.subCategories; track sub.key) {
+                                    <!-- Mobile Unterkategorie -->
+                                    <h4 align="center" class="clickable-header mobile-header" (click)="toggle(sub.key + '_m')">
+                                        {{ sub.title }}
+                                        <span class="arrow" [class.rotated]="isExpanded(sub.key + '_m')">▼</span>
+                                    </h4>
+                                    
+                                    @if (isExpanded(sub.key + '_m')) {
+                                        <div class="mobile-button-container">
+                                            @for (btn of sub.buttons; track btn.label) {
+                                                <!-- Mobile Buttons -->
+                                                <button mat-raised-button color="primary" class="mobile-inhaltsbutton" (click)="onMenuButtonClick(btn)">
+                                                    {{ btn.label }}
+                                                </button>
+                                            }
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        }
                     }
                 </div>
             </div>
