@@ -1,3 +1,8 @@
+.headerContent{
+  margin-top: 1.25rem;
+   padding: 0.8rem 1.25rem;
+}
+
 .home-header {
     position: sticky;
     top: 0.75rem;
@@ -27,23 +32,58 @@
   }
 }
 
-.werBinIch-demo{
-    width: 25%;
-    margin-top: 1.25rem;
-    padding: 0.8rem 1.25rem;
-    border-radius: 16px;
-    background: linear-gradient(135deg, #1e1e1e 0%, #2d1b3d 100%);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 1px 0px rgba(200, 77, 255, 0.3);
-    border: 1px solid rgba(200, 77, 255, 0.3);
+.main-layout {
+  display: flex;
+  gap: 20px;            // Abstand zwischen Side-Content und Banner
+  margin-top: 20px;     // Abstand nach oben zum Header
+  align-items: flex-start; // Verhindert, dass sich Elemente unschön in die Länge ziehen
 
-    h2 {
-        margin: 0.5rem 0;
-        color: #ffffff;
-    }
+  // Für kleinere Bildschirme (z.B. Smartphones) bricht das Layout 
+  // automatisch wieder untereinander um, damit es mobil gut aussieht.
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
 
-    p {
-        margin: 0.5rem 0 0;
-        color: #b0b0b0;
-        font-size: 0.95rem;
-    }
+.sideContent {
+  width: 25%;             
+  flex-shrink: 0;        
+  padding: 0.8rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.content{
+  margin-top: 1.25rem;
+  padding: 0.8rem 1.25rem;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #1e1e1e 0%, #2d1b3d 100%);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 1px 0px rgba(200, 77, 255, 0.3);
+  border: 1px solid rgba(200, 77, 255, 0.3);
+
+  h2 {
+      margin: 0.5rem 0;
+      color: #ffffff;
+  }
+
+  p {
+      margin: 0.5rem 0 0;
+      color: #b0b0b0;
+      font-size: 0.95rem;
+  }
+
+  &:hover {
+    background: #416282;
+    border-color: #c84dff;
+  }
+}
+
+.banner {
+  padding: 0.8rem 1.25rem;
+  flex-grow: 1;           
+}
+
+.image{
+  border-radius: 8px;
 }
