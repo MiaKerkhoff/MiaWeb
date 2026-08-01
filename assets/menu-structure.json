@@ -1,0 +1,52 @@
+[
+  {
+    "key": "storys",
+    "title": "Storys",
+    "subCategories": [
+      {
+        "key": "warhammer",
+        "title": "Warhammer",
+        "buttons": [
+          { 
+            "label": "Green Winged Hussars", 
+            "actionType": "story", 
+            "parameter": "Green Winged Hussars" 
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "fotos",
+    "title": "Fotos",
+    "subCategories": [
+      {
+        "key": "urlaub",
+        "title": "Urlaub",
+        "buttons": [
+          { 
+            "label": "Florenz Urlaub", 
+            "actionType": "photo", 
+            "parameter": "Florenz" 
+          },
+          { 
+            "label": "Abi Fahrt", 
+            "actionType": "photo", 
+            "parameter": "Abifahrt" 
+          }
+        ]
+      },
+      {
+        "key": "sonstiges",
+        "title": "Sonstiges",
+        "buttons": [
+          { 
+            "label": "Me", 
+            "actionType": "photo", 
+            "parameter": "✨me✨" 
+          }
+        ]
+      }
+    ]
+  }
+]
