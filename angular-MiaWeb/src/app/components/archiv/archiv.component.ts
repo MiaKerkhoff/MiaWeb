@@ -35,18 +35,18 @@ export class ArchivComponent implements OnInit, OnDestroy {
   private breakpointSub!: Subscription;
 
   ngOnInit(): void {
-    // Lädt die JSON-Datei aus dem Assets-Ordner
-    this.http.get<any[]>('assets/menu-structure.json').subscribe({
-      next: (data) => {
-        this.menuStructure = data;
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        console.error('Fehler beim Laden der Menüstruktur JSON:', err);
-      }
-    });
-
+    // HTTP-Request NUR im echten Browser ausführen (verhindert Prerender/SSR-Absturz!)
     if (isPlatformBrowser(this.platformId)) {
+      this.http.get<any[]>('assets/menu-structure.json').subscribe({
+        next: (data) => {
+          this.menuStructure = data;
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Fehler beim Laden der Menüstruktur JSON:', err);
+        }
+      });
+
       this.breakpointSub = this.breakpointObserver
         .observe([Breakpoints.Handset, '(max-width: 768px)'])
         .subscribe(result => {
